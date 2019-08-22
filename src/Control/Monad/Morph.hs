@@ -114,7 +114,7 @@ class MFunctor t where
         The first argument to `hoist` must be a monad morphism, even though the
         type system does not enforce this
     -}
-    hoist :: (Monad m) => (forall a . m a -> n a) -> t m b -> t n b
+    hoist :: (Monad m, Functor n) => (forall a . m a -> n a) -> t m b -> t n b
 
 instance MFunctor (E.ErrorT e) where
     hoist nat m = E.ErrorT (nat (E.runErrorT m))
